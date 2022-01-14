@@ -78,31 +78,3 @@ $ sudo nano /var/ossec/etc/ossec.conf
     <alert_format>json</alert_format>
 </integration>
 ```
-где:
-
-**name** - название интегратора(не нужно изменять)
-
-**hook_url** - адрес TheHive
-
-**api\_key** - API ключ TheHive пользователя. Сгенериоровать ключ можно на странице управления пользователями, авторизовавшись от администратора. Для безопасности разрешите api-пользователю только создание alert.
-
-**alert\_format** - формат, в котором wazuh передает в интегратор alert(не нужно изменять)
-
-после настройки примените изменения командой:
-```sh
-/var/ossec/bin/ossec_control restart
-```
-В конце проверьте файл /var/ossec/log/integrations.log на присутствие ошибок. Если информации из ошибки недостаточно, вы можете включить debug_mode, поменяв в файле custom-w2thive.py строчку
-```python
-debug_enabled = False
-```
-на 
-```python
-debug_enabled = True
-```
-Если вы получаете слишком много событий, вы можете задать порог критичности отправляемых в TheHive событий. Для того чтобы его установить этот порог, задайте значение переменной lvl_threshold в файле /var/ossec/integrations/custom-w2thive.py
-```python
-lvl_threshold = 0
-```
-В TheHive будут отправлены события с уровнем критичности равным или большим. Подробнее про классификацию событий в Wazuh можно прочитать здесь: [wazuh-rules-classification](https://documentation.wazuh.com/3.12/user-manual/ruleset/rules-classification.html)
-Vadim M.
