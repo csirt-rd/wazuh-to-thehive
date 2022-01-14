@@ -1,0 +1,7 @@
+logs/*
+logs
+*.alert
+venv
+venv/*
+*.bak
+.log
